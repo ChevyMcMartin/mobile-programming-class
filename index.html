@@ -1,0 +1,276 @@
+<!--
+CMFeedbackA2
+Prototype website concerning feedback and reviews
+
+Revision History
+    Chevy McMartin, 2018.03.17: Created
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>CM Feedback A2</title>
+        <!--jQuery-->
+        <script src="js/lib/jquery-2.1.4.js"></script>
+        <!--jQuery mobile-->
+        <script src="js/lib/jquery.mobile-1.4.5.js"></script>
+        <!--jQuery mobile css-->
+        <link rel="stylesheet" type="text/css" href="css/lib/jquery.mobile-1.4.5.css">
+        <!--jQuery validation lib-->
+        <script src="js/lib/jquery.validate.js"></script>
+        <!--my scripts-->
+        <script src="js/cmdatabase.js"></script>
+        <script src="js/cmfeedbackDAL.js"></script>
+        <script src="js/cmutil.js"></script>
+        <script src="js/cmglobal.js"></script>
+        <!--my stylesheet-->
+        <link rel="stylesheet" type="text/css" href="css/cmmystyle.css">
+    </head>
+    <body>
+
+        <!--page 1-->
+        <div data-role="page" id="cmHomePage">
+            <header data-role="header" data-theme="b" data-position="fixed">
+                <h1>CM Feedback A2</h1>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#cmHomePage" data-icon="home" class="ui-btn-active ui-state-persist"
+                               data-theme="a">Home</a></li>
+                        <li><a href="#cmAddFeedbackPage" data-icon="plus" data-theme="a">Add</a></li>
+                        <li><a href="#cmViewFeedbackPage" data-icon="grid" data-theme="a">Reviews</a></li>
+                        <li><a href="#cmSettingsPage" data-icon="gear" data-theme="a">Settings</a></li>
+                    </ul>
+                </div>
+
+            </header>
+            <section data-role="content">
+                <h1>Chevy McMartin's Feedback A2 App</h1>
+                <p>Welcome to the Chevy McMartin's Feedback A2 app. A prototype designed for mobile programming class.
+                    This is the first iteration of the app to keep track of different places you visited along with your
+                    reviews.
+                </p>
+                <div style="text-align: center"><img src="img/cm-icon.png" alt="CM Icon" width="100%"
+                                                     style="max-width: 500px"></div>
+                <p>Please feel free to contact me if you have any suggestions!</p>
+                <a href="tel:1-519-748-5220" data-role="button" data-icon="plus">Call: 519.748.5220</a>
+                <a href="mailto:cmcmartin-cc@conestogac.on.ca" data-role="button" data-icon="plus">cmcmartin-cc@conestogac.on.ca</a>
+                <p>Website:</p>
+                <a href="http://conestogac.on.ca" data-role="button" data-icon="plus">Conestoga College</a>
+            </section>
+            <footer data-role="footer" data-theme="b" data-position="fixed">
+                <h4>&copy; 2018 Chevy McMartin</h4>
+            </footer>
+        </div>
+
+        <!--page 2-->
+        <div data-role="page" id="cmAddFeedbackPage">
+            <header data-role="header" data-theme="b" data-position="fixed">
+                <h1>Add a Feedback</h1>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#cmHomePage" data-icon="home" data-theme="a">Home</a></li>
+                        <li><a href="#cmAddFeedbackPage" data-icon="plus" class="ui-btn-active ui-state-persist"
+                               data-theme="a">Add</a></li>
+                        <li><a href="#cmViewFeedbackPage" data-icon="grid" data-theme="a">Reviews</a></li>
+                        <li><a href="#cmSettingsPage" data-icon="gear" data-theme="a">Settings</a></li>
+                    </ul>
+                </div>
+
+            </header>
+            <section data-role="content">
+                <form action="#" id="cmAddForm" name="cmAddForm">
+                    <label for="cmBusinessName">Business Name:</label>
+                    <input type="text" data-clear-btn="true" id="cmBusinessName" name="cmBusinessName" class="required">
+
+                    <label for="cmcmbType">Type:</label>
+                    <select name="cmcmbType" id="cmcmbType" data-native-menu="false">
+                        <option value="other" selected="selected">Other</option>
+                        <option value="asian">Asian</option>
+                        <option value="canadian">Canadian</option>
+                    </select>
+
+                    <label for="cmReviewerEmail">Reviewer Email:</label>
+                    <input type="text" id="cmReviewerEmail" name="cmReviewerEmail" data-clear-btn="true">
+                    <label for="cmReviewerComments">Reviewer Comments:</label>
+                    <textarea id="cmReviewerComments" name="cmReviewerComments" form="cmAddForm"></textarea>
+
+                    <label for="cmReviewDate">Review Date:</label>
+                    <input type="date" id="cmReviewDate" name="cmReviewDate">
+
+                    <input type="checkbox" id="cmchkAddRatings" name="cmchkAddRatings" checked>
+                    <label for="cmchkAddRatings">Do you want to add your ratings?</label>
+
+                    <div id="cmHideRatings">
+                        <label for="cmFoodQuantity">Food Quantity (0-5):</label>
+                        <input type="number" id="cmFoodQuantity" name="cmFoodQuantity" value="0">
+                        <label for="cmService">Service (0-5):</label>
+                        <input type="number" id="cmService" name="cmService" value="0">
+                        <label for="cmValue">Value (0-5):</label>
+                        <input type="number" id="cmValue" name="cmValue" value="0">
+
+                        <label for="cmOverallRatings">Overall Rating (Calculated):</label>
+                        <input type="text" id="cmOverallRatings" name="cmOverallRatings"
+                               data-theme="a" placeholder="Rating (Calculated)" disabled>
+
+                    </div>
+
+                    <button type="button" data-role="button" id="cmSave" name="cmSave" data-inline="true"
+                            class="ui-btn-active ui-state-persist">Save
+                    </button>
+
+                </form>
+            </section>
+            <footer data-role="footer" data-theme="b" data-position="fixed">
+                <h4>&copy; 2018 Chevy McMartin</h4>
+            </footer>
+        </div>
+
+        <!--page 3-->
+        <div data-role="page" id="cmViewFeedbackPage">
+            <header data-role="header" data-theme="b" data-position="fixed">
+                <h1>List of Reviews</h1>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#cmHomePage" data-icon="home" data-theme="a">Home</a></li>
+                        <li><a href="#cmAddFeedbackPage" data-icon="plus" data-theme="a">Add</a></li>
+                        <li><a href="#cmViewFeedbackPage" data-icon="grid" class="ui-btn-active ui-state-persist"
+                               data-theme="a">Reviews</a></li>
+                        <li><a href="#cmSettingsPage" data-icon="gear" data-theme="a">Settings</a></li>
+                    </ul>
+                </div>
+
+            </header>
+            <section data-role="content">
+                <ul data-role="listview" id="cmFeedbackList" class="ui-listview-inset" data-inset="true"
+                    data-icon="false">
+                    <li><a href="#cmEditFeedbackPage">
+                        <h3>Business Name: My Bicycle Shop</h3>
+                        <p>Reviewer Email: cm@spy.com</p>
+                        <p>Comments: Staff was too busy to help!</p>
+                        <p>Overall Rating: 60%</p>
+                    </a></li>
+                    <li><a href="#cmEditFeedbackPage">
+                        <h3>Business Name: My Sparkling Water Shop</h3>
+                        <p>Reviewer Email: cm@spy.com</p>
+                        <p>Comments: Amazing selection!</p>
+                        <p>Overall Rating: 100%</p>
+                    </a></li>
+                </ul>
+            </section>
+            <footer data-role="footer" data-theme="b" data-position="fixed">
+                <h4>&copy; 2018 Chevy McMartin</h4>
+            </footer>
+        </div>
+
+        <!--page 4-->
+        <div data-role="page" id="cmEditFeedbackPage">
+            <header data-role="header" data-theme="b" data-position="fixed">
+                <h1>Modify Feedback</h1>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#cmHomePage" data-icon="home" data-theme="a">Home</a></li>
+                        <li><a href="#cmAddFeedbackPage" data-icon="plus" data-theme="a">Add</a></li>
+                        <li><a href="#cmViewFeedbackPage" data-icon="grid" class="ui-btn-active ui-state-persist"
+                               data-theme="a">Reviews</a></li>
+                        <li><a href="#cmSettingsPage" data-icon="gear" data-theme="a">Settings</a></li>
+                    </ul>
+                </div>
+
+            </header>
+            <section data-role="content">
+                <form action="#" id="cmEditForm" name="cmEditForm">
+                    <label for="cmEditBusinessName">Business Name:</label>
+                    <input type="text" id="cmEditBusinessName" name="cmEditBusinessName" data-clear-btn="true"
+                           placeholder="My Bicycle Shop">
+
+                    <label for="cmcmbTypeModify">Type:</label>
+                    <select name="cmcmbTypeModify" id="cmcmbTypeModify" data-native-menu="false">
+                        <option value="other">Other</option>
+                        <option value="asian">Asian</option>
+                        <option value="canadian" selected="selected">Canadian</option>
+                    </select>
+
+                    <label for="cmEditReviewerEmail">Reviewer Email:</label>
+                    <input type="text" id="cmEditReviewerEmail" name="cmEditReviewerEmail" class="required"
+                           data-clear-btn="true" placeholder="cm@spy.com">
+                    <label for="cmEditReviewerComments">Reviewer Comments:</label>
+                    <textarea id="cmEditReviewerComments" name="cmEditReviewerComments" form="cmAddForm"
+                              placeholder="Amazing selection!"></textarea>
+
+                    <label for="cmReviewDateModify">Review Date:</label>
+                    <input type="date" id="cmReviewDateModify" name="cmReviewDateModify" value="2018-03-17">
+
+                    <input type="checkbox" id="cmchkAddRatingsModify" name="cmchkAddRatingsModify" checked>
+                    <label for="cmchkAddRatingsModify">Do you want to add your ratings?</label>
+
+                    <div id="cmHideRatingsModify">
+                        <label for="cmFoodQuantityModify">Food Quantity (0-5):</label>
+                        <input type="number" id="cmFoodQuantityModify" name="cmFoodQuantityModify" value="0">
+                        <label for="cmServiceModify">Service (0-5):</label>
+                        <input type="number" id="cmServiceModify" name="cmServiceModify" value="0">
+                        <label for="cmValueModify">Value (0-5):</label>
+                        <input type="number" id="cmValueModify" name="cmValueModify" value="0">
+
+                        <label for="cmOverallRatingsModify">Overall Rating (Calculated):</label>
+                        <input type="text" id="cmOverallRatingsModify" name="cmOverallRatingsModify"
+                               data-theme="a" placeholder="Rating (Calculated)" disabled>
+                    </div>
+
+                    <div data-role="controlgroup" data-type="horizontal">
+                        <button type="button" data-role="button" id="cmCancelEditForm" name="cmCancel"
+                                data-inline="true"
+                                style="background-color: yellow">Cancel
+                        </button>
+                        <button type="button" data-role="button" id="cmDeleteEditForm" name="cmDelete" data-theme="b">
+                            Delete
+                        </button>
+                        <button type="button" data-role="button" id="cmUpdateEditForm" name="cmUpdate"
+                                class="ui-btn-active ui-state-persist">Update
+                        </button>
+                    </div>
+
+                </form>
+            </section>
+            <footer data-role="footer" data-theme="b" data-position="fixed">
+                <h4>&copy; 2018 Chevy McMartin</h4>
+            </footer>
+        </div>
+
+        <!--page 5-->
+        <div data-role="page" id="cmSettingsPage">
+            <header data-role="header" data-theme="b" data-position="fixed">
+                <h1>Settings</h1>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#cmHomePage" data-icon="home" data-theme="a">Home</a></li>
+                        <li><a href="#cmAddFeedbackPage" data-icon="plus" data-theme="a">Add</a></li>
+                        <li><a href="#cmViewFeedbackPage" data-icon="grid" data-theme="a">Reviews</a></li>
+                        <li><a href="#cmSettingsPage" data-icon="gear" class="ui-btn-active ui-state-persist"
+                               data-theme="a">Settings</a></li>
+                    </ul>
+                </div>
+
+            </header>
+            <section data-role="content">
+                <form action="#" id="cmSettingsForm">
+                    <label for="cmDefaultReviewerEmail">Default Reviewer Email:</label>
+                    <input type="text" id="cmDefaultReviewerEmail" name="cmDefaultReviewerEmail"
+                           value="cmcmartin7968@conestogac.on.ca">
+
+                    <button type="button" data-role="button" id="cmSaveDefaults" name="cmSaveDefaults"
+                            class="ui-btn-active ui-state-persist">Save Defaults
+                    </button>
+                    <button type="button" data-role="button" id="cmClearDatabase" name="cmClearDatabase" data-theme="b">
+                        Clear Database
+                    </button>
+                </form>
+            </section>
+            <footer data-role="footer" data-theme="b" data-position="fixed">
+                <h4>&copy; 2018 Chevy McMartin</h4>
+            </footer>
+        </div>
+
+    </body>
+</html>
